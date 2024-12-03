@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: comp
+
+server:
+  port: 9031
+
+
+resource:
+  word-graph:
+    node: /node/node.csv
+
+
+data:
+  neo4j:
+    uri: bolt://localhost:7687
+    username: leo
+    password: lou..200499
+    db-name: compword
