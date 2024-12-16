@@ -1,0 +1,121 @@
+D:\Tools\service\neo4j\application_data\relate-data\dbmss\dbms-b8506623-fb8a-4681-8a2b-5f313a65f4a5\bin>neo4j-admin database import full compkey --nodes=D:/projects/CompKey1/resource/neo4j_import_new/node.csv --relationships=D:/projects/CompKey1/resource/neo4j_import_new/edge.csv --overwrite-destination
+Neo4j version: 5.24.0
+Importing the contents of these files into D:\Tools\service\neo4j\application_data\relate-data\dbmss\dbms-b8506623-fb8a-4681-8a2b-5f313a65f4a5\data\databases\compkey:
+Nodes:
+  D:\projects\CompKey1\resource\neo4j_import_new\node.csv
+
+Relationships:
+  D:\projects\CompKey1\resource\neo4j_import_new\edge.csv
+
+
+Available resources:
+  Total machine memory: 31.47GiB
+  Free machine memory: 10.97GiB
+  Max heap memory : 910.5MiB
+  Max worker threads: 22
+  Configured max memory: 9.252GiB
+  High parallel IO: true
+
+Cypher type normalization is enabled (disable with --normalize-types=false):
+  Property type of 'num' normalized from 'int' --> 'long' in D:\projects\CompKey1\resource\neo4j_import_new\node.csv
+  Property type of 'num' normalized from 'int' --> 'long' in D:\projects\CompKey1\resource\neo4j_import_new\edge.csv
+Import starting
+  Page cache size: 1.992GiB
+  Number of worker threads: 22
+  Estimated number of nodes: 157.252
+  Estimated number of relationships: 3.874.889
+
+Importing nodes
+.......... .......... .......... .......... ..........   5% ∆1s 58ms [1s 58ms]
+.......... .......... .......... .......... ..........  10% ∆241ms [1s 299ms]
+.......... .......... .......... .......... ..........  15% ∆276ms [1s 575ms]
+.......... .......... .......... .......... ..........  20% ∆202ms [1s 777ms]
+.......... .......... .......... .......... ..........  25% ∆140ms [1s 918ms]
+.......... .......... .......... .......... ..........  30% ∆36ms [1s 955ms]
+.......... .......... .......... .......... ..........  35% ∆22ms [1s 977ms]
+.......... .......... .......... .......... ..........  40% ∆12ms [1s 989ms]
+.......... .......... .......... .......... ..........  45% ∆12ms [2s 1ms]
+.......... .......... .......... .......... ..........  50% ∆12ms [2s 13ms]
+.......... .......... .......... .......... ..........  55% ∆11ms [2s 25ms]
+.......... .......... .......... .......... ..........  60% ∆11ms [2s 36ms]
+.......... .......... .......... .......... ..........  65% ∆16ms [2s 53ms]
+.......... .......... .......... .......... ..........  70% ∆12ms [2s 66ms]
+.......... .......... .......... .......... ..........  75% ∆11ms [2s 77ms]
+.......... .......... .......... .......... ..........  80% ∆22ms [2s 99ms]
+.......... .......... .......... .......... ..........  85% ∆0ms [2s 99ms]
+.......... .......... .......... .......... ..........  90% ∆0ms [2s 99ms]
+.......... .......... .......... .......... ..........  95% ∆0ms [2s 99ms]
+.......... .......... .......... .......... .......... 100% ∆0ms [2s 99ms]
+Imported 122,612 nodes in 2s 117ms
+Prepare ID mapper
+.......... .......... .......... .......... ..........   5% ∆61ms [61ms]
+.......... .......... .......... .......... ..........  10% ∆0ms [62ms]
+.......... .......... .......... .......... ..........  15% ∆1ms [63ms]
+.......... .......... .......... .......... ..........  20% ∆1ms [65ms]
+.......... .......... .......... .......... ..........  25% ∆7ms [73ms]
+.......... .......... .......... .......... ..........  30% ∆21ms [94ms]
+.......... .......... .......... .......... ..........  35% ∆96ms [190ms]
+.......... .......... .......... .......... ..........  40% ∆10ms [201ms]
+.......... .......... .......... .......... ..........  45% ∆2ms [204ms]
+.......... .......... .......... .......... ..........  50% ∆2ms [206ms]
+.......... .......... .......... .......... ..........  55% ∆5ms [211ms]
+.......... .......... .......... .......... ..........  60% ∆2ms [214ms]
+.......... .......... .......... .......... ..........  65% ∆1ms [215ms]
+.......... .......... .......... .......... ..........  70% ∆4ms [219ms]
+.......... .......... .......... .......... ..........  75% ∆0ms [220ms]
+.......... .......... .......... .......... ..........  80% ∆5ms [225ms]
+.......... .......... .......... .......... ..........  85% ∆2ms [227ms]
+.......... .......... .......... .......... ..........  90% ∆3ms [231ms]
+.......... .......... .......... .......... ..........  95% ∆1ms [232ms]
+.......... .......... .......... .......... .......... 100% ∆0ms [233ms]
+Importing relationships
+Converting to intermediary format
+.......... .......... .......... .......... ..........   5% ∆349ms [349ms]
+.......... .......... .......... .......... ..........  10% ∆59ms [409ms]
+.......... .......... .......... .......... ..........  15% ∆100ms [509ms]
+.......... .......... .......... .......... ..........  20% ∆29ms [538ms]
+.......... .......... .......... .......... ..........  25% ∆39ms [578ms]
+.......... .......... .......... .......... ..........  30% ∆30ms [608ms]
+.......... .......... .......... .......... ..........  35% ∆30ms [639ms]
+.......... .......... .......... .......... ..........  40% ∆30ms [669ms]
+.......... .......... .......... .......... ..........  45% ∆29ms [698ms]
+.......... .......... .......... .......... ..........  50% ∆28ms [727ms]
+.......... .......... .......... .......... ..........  55% ∆29ms [756ms]
+.......... .......... .......... .......... ..........  60% ∆31ms [788ms]
+.......... .......... .......... .......... ..........  65% ∆29ms [817ms]
+.......... .......... .......... .......... ..........  70% ∆28ms [846ms]
+.......... .......... .......... .......... ..........  75% ∆28ms [874ms]
+.......... .......... .......... .......... ..........  80% ∆31ms [905ms]
+.......... .......... .......... .......... ..........  85% ∆29ms [934ms]
+.......... .......... .......... .......... ..........  90% ∆30ms [965ms]
+.......... .......... .......... .......... ..........  95% ∆29ms [995ms]
+.......... .......... .......... .......... .......... 100% ∆42ms [1s 37ms]
+  using configuration:Configuration[numberOfWorkers=22, temporaryPath=D:\Tools\service\neo4j\application_data\relate-data\dbmss\dbms-b8506623-fb8a-4681-8a2b-5f313a65f4a5\data\databases\compkey\temp, numberOfTrackedDense=10000, applyBatchSize=64]
+Importing relationships
+.......... .......... .......... .......... ..........   5% ∆595ms [595ms]
+.......... .......... .......... .......... ..........  10% ∆143ms [739ms]
+.......... .......... .......... .......... ..........  15% ∆180ms [920ms]
+.......... .......... .......... .......... ..........  20% ∆134ms [1s 55ms]
+.......... .......... .......... .......... ..........  25% ∆147ms [1s 202ms]
+.......... .......... .......... .......... ..........  30% ∆132ms [1s 334ms]
+.......... .......... .......... .......... ..........  35% ∆114ms [1s 449ms]
+.......... .......... .......... .......... ..........  40% ∆139ms [1s 589ms]
+.......... .......... .......... .......... ..........  45% ∆113ms [1s 702ms]
+.......... .......... .......... .......... ..........  50% ∆81ms [1s 784ms]
+.......... .......... .......... .......... ..........  55% ∆82ms [1s 866ms]
+.......... .......... .......... .......... ..........  60% ∆167ms [2s 34ms]
+.......... .......... .......... .......... ..........  65% ∆309ms [2s 343ms]
+.......... .......... .......... .......... ..........  70% ∆262ms [2s 606ms]
+.......... .......... .......... .......... ..........  75% ∆183ms [2s 789ms]
+.......... .......... .......... .......... ..........  80% ∆208ms [2s 997ms]
+.......... .......... .......... .......... ..........  85% ∆239ms [3s 237ms]
+.......... .......... .......... .......... ..........  90% ∆115ms [3s 352ms]
+.......... .......... .......... .......... ..........  95% ∆68ms [3s 421ms]
+.......... .......... .......... .......... .......... 100% ∆243ms [3s 664ms]
+Imported 4,268,400 relationships in 5s 206ms
+Flushing stores
+Flush completed in 396ms
+IMPORT DONE in 9s 251ms.
+
+neo4j-admin database import full compword --nodes=D:/projects/CompKey1/resource/neo4j_import_new/node.csv --id-type=integer --relationships=D:\projects\CompKey1\resource\batch_compkey_score\0-2999.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\101080-104079.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\104080-104209.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\104210-107209.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\107210-110209.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\110210-110339.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\110340-113339.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\113340-116339.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\116340-116469.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\116470-119469.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\119470-122469.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\12130-12259.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\122470-122611.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\12260-15259.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\15260-18259.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\18260-18389.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\18390-21389.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\21390-24389.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\24390-24519.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\24520-27519.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\27520-30519.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\3000-5999.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\30520-30649.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\30650-33649.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\33650-36649.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\36650-36779.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\36780-39779.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\39780-42779.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\42780-42909.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\42910-45909.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\45910-48909.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\48910-49039.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\49040-52039.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\52040-55039.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\55040-55169.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\55170-58169.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\58170-61169.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\6000-6129.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\61170-61299.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\6130-9129.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\61300-64299.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\64300-67299.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\67300-67429.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\67430-70429.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\70430-73429.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\73430-73559.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\73560-76559.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\76560-79559.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\79560-79689.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\79690-82689.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\82690-85689.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\85690-85819.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\85820-88819.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\88820-91819.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\9130-12129.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\91820-91949.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\91950-94949.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\94950-97949.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\97950-98079.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\98080-101079.csv --relationships=D:\projects\CompKey1\resource\batch_compkey_score\edge.csv --overwrite-destination
+neo4j-admin database import full @D:\projects\comp\note\tmp.txt

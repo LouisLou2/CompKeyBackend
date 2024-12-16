@@ -1,0 +1,17 @@
+MATCH (w:SWORD)-[r:CO_OCCUR]-(n:SWORD)
+WHERE w.wordId IN [2000000, 2000001,2000002,"0"]
+WITH w, n, r.num AS num
+RETURN
+       CASE WHEN w.wordId < n.wordId THEN w.wordId ELSE n.wordId END AS id1,
+       CASE WHEN w.wordId < n.wordId THEN n.wordId ELSE w.wordId END AS id2,
+       num
+
+UNION
+
+MATCH (w:SWORD)-[r:CO_OCCUR]-(n:SWORD)-[r2:CO_OCCUR]-(n2:SWORD)
+WHERE w.wordId IN [2000000, 2000001,2000002,"0"] AND n2 <> w  // 排除直接邻居
+WITH n.wordId AS id1, n2.wordId AS id2, r2.num AS num
+RETURN DISTINCT
+       CASE WHEN id1 < id2 THEN id1 ELSE id2 END AS id1,
+       CASE WHEN id1 < id2 THEN id2 ELSE id1 END AS id2,
+       num

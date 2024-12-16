@@ -1,6 +1,13 @@
 spring:
   application:
     name: comp
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: #没有密码的话不用填
+      timeout: 10000
+      database: 1
 
 server:
   port: 9031
@@ -17,3 +24,20 @@ data:
     username: leo
     password: lou..200499
     db-name: compword
+
+container:
+  redis:
+    reco-words:
+      list-prefix: comp:reco-word:list
+      lru-zset: comp:reco-word:lru
+      max-capacity: 5000
+
+
+async:
+  thread-pool:
+    core-pool-size: 5
+    max-pool-size: 10
+    queue-capacity: 1000
+    keep-alive-seconds: 60
+    thread-name-prefix: async-service-
+    await-termination-seconds: 30

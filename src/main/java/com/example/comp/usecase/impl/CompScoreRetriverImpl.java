@@ -1,57 +1,50 @@
 package com.example.comp.usecase.impl;
 
+import com.example.comp.dao.CompScoreDao;
 import com.example.comp.entity.CompWord;
-import com.example.comp.service.inter.Neo4jConnector;
-import com.example.comp.service.inter.WordMap;
-import com.example.comp.struct.Pair;
+import com.example.comp.entity.RecoCompWord;
+import com.example.comp.service.cache.RecoCompWordCache;
+import com.example.comp.struct.NullablePair;
 import com.example.comp.usecase.inter.CompScoreRetriever;
+import com.example.comp.util.ListUtil;
 import jakarta.annotation.Resource;
-import org.neo4j.driver.Record;
-import org.neo4j.driver.Result;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CompScoreRetriverImpl implements CompScoreRetriever {
-  @Resource
-  private WordMap wordMap;
-  @Resource
-  private Neo4jConnector neo4jConnector;
 
-  final String getComputedCompWordsScript = """
-      MATCH (w:SWORD)-[r:SCORE]->(n:SWORD)
-      WHERE w.wordId = $wordId
-      RETURN n.wordId AS targetId, r.score AS score
-      ORDER BY r.score DESC
-      LIMIT $limit
-  """;
+  @Resource
+  private CompScoreDao compScoreDao;
+
+  @Resource
+  private RecoCompWordCache recoCompWordCache;
 
   @Override
-  public Pair<Boolean,List<CompWord>> getCompWords(String word,int limit) {
-    Integer id = wordMap.getIdByWord(word);
-    if(id == null) return new Pair<>(false, null);
-    List<CompWord> compWords = getCompWords(id, limit);
-    wordMap.setWordFor(compWords);
-    return new Pair<>(true, compWords);
+  public List<CompWord> getCompWords(int wordId, int limit, int offset, boolean autoRenewCache) {
+    List<RecoCompWord> lis = getRecoCompWords(wordId, limit, offset, autoRenewCache);
+    return lis.stream().map(RecoCompWord::toCompWord).toList();
   }
 
   @Override
-  public List<CompWord> getCompWords(int wordId, int limit) {
-    Result result = neo4jConnector.getSession().run(
-        getComputedCompWordsScript,
-        Map.of("wordId", wordId, "limit", limit)
-    );
-    List<CompWord> compWords = new ArrayList<>();
-    while (result.hasNext()) {
-      Record record = result.next();
-      CompWord word = new CompWord();
-      word.setId(record.get("targetId").asInt());
-      word.setScore(record.get("score").asDouble());
-      compWords.add(word);
+  public List<RecoCompWord> getRecoCompWords(int wordId, int limit, int offset, boolean autoRenewCache) {
+    // 先去缓存中查找
+    NullablePair<Boolean,List<RecoCompWord>> cacheResult = recoCompWordCache.getRecoCompWords(wordId, limit, offset);
+    // 如果缓存中有数据，直接返回
+    if (cacheResult.getFirst()) {
+      return cacheResult.getSecond();
     }
-    return compWords;
+    if (autoRenewCache) {
+      // 如果需要自动更新缓存, 将该种子的所有竞争词插入
+      List<RecoCompWord> allRecoCompWords = compScoreDao.getRecoCompWords(wordId, Integer.MAX_VALUE, 0);
+      assert allRecoCompWords != null;
+      if (allRecoCompWords.isEmpty()) {
+        return allRecoCompWords;
+      }
+      recoCompWordCache.insertRecoCompWords(wordId, allRecoCompWords);
+      return ListUtil.safeSubList(offset, limit, allRecoCompWords);
+    }
+    return compScoreDao.getRecoCompWords(wordId, limit, offset);
   }
 }
