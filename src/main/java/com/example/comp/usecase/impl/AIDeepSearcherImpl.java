@@ -29,10 +29,10 @@ public class AIDeepSearcherImpl implements AIDeepSearcher {
 
   @Override
   public List<WordScore> recommend(String queryWord, List<RecoCompWord> candidates){
-    String prompt = promptBuilder.buildPrompt(queryWord, candidates);
+    String prompt = promptBuilder.buildRecoPrompt(queryWord, candidates);
     String modelOutput;
     try{
-      modelOutput = aiCompleter.complete(prompt, queryWord);
+      modelOutput = aiCompleter.complete(prompt, "");
       String primaryChoice = modelOutputParser.modelOutputPrimaryChoice(modelOutput);
       return parseWordScores(primaryChoice); // 可以是null
     } catch (Exception e) {
@@ -41,7 +41,19 @@ public class AIDeepSearcherImpl implements AIDeepSearcher {
     }
   }
 
-  List<WordScore> parseWordScores(String primaryChoice) throws JsonProcessingException {
+  @Override
+  public String report(String queryWord, List<RecoCompWord> candidates) {
+    String prompt = promptBuilder.buildReportPrompt(queryWord, candidates);
+    try {
+      String modelOutput = aiCompleter.complete(prompt, "");
+      return modelOutputParser.modelOutputPrimaryChoice(modelOutput);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  private List<WordScore> parseWordScores(String primaryChoice) throws JsonProcessingException {
     return objectMapper.readValue(
         primaryChoice,
         objectMapper.getTypeFactory().constructCollectionType(List.class, WordScore.class)

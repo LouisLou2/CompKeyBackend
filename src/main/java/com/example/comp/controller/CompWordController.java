@@ -79,24 +79,71 @@ public class CompWordController {
       String word,
       @RequestParam @Min(1) @Max(10000) int limit,
       @RequestParam @Min(0) int offset
-  ) throws JsonProcessingException {
+  ){
     Map<String,Object> res = new HashMap<>();
     List<WordScore> recos = new ArrayList<>();
     RelatedWord relatedWord = new RelatedWord(word, recos);
+    res.put("status", "failed");
+    res.put("data", relatedWord);
 
     Integer wordId = wordMap.getIdByWord(word);
-    if (wordId == null) {
-      res.put("status", "failed");
-      res.put("data", relatedWord);
+    if (wordId == null) return res;
+    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
+    try{
+      recos = aiDeepSearcher.recommend(word, result);
+    } catch (JsonProcessingException e) {
       return res;
     }
-    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
-    recos = aiDeepSearcher.recommend(word, result);
     relatedWord = new RelatedWord(word, recos);
     res.put("status", "success");
     res.put("data", relatedWord);
     return res;
   }
+
+  @GetMapping("/ai_report")
+  Map<String,Object> getWordReportByAI(
+      String word,
+      @RequestParam @Min(1) @Max(10000) int limit,
+      @RequestParam @Min(0) int offset
+  ){
+    Map<String,Object> res = new HashMap<>();
+    String report ="";
+
+    Integer wordId = wordMap.getIdByWord(word);
+    if (wordId == null){
+      res.put("status", "failed");
+      res.put("data", Map.of("analysis", report));
+      return res;
+    }
+    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
+    report = aiDeepSearcher.report(word, result);
+    res.put("status", "success");
+    res.put("data", Map.of("analysis", report));
+    return res;
+  }
+
+//  @GetMapping("/ai_marketing_copy")
+//  Map<String,Object> getWordMarketCopyByAI(
+//      String word,
+//      @RequestParam @Min(1) @Max(10000) int limit,
+//      @RequestParam @Min(0) int offset
+//  ){
+//    Map<String,Object> res = new HashMap<>();
+//    String report ="";
+//
+//    Integer wordId = wordMap.getIdByWord(word);
+//    if (wordId == null){
+//      res.put("status", "failed");
+//      res.put("data", Map.of("analysis", report));
+//      return res;
+//    }
+//    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
+//    report = aiDeepSearcher.report(word, result);
+//    res.put("status", "success");
+//    res.put("data", Map.of("analysis", report));
+//    return res;
+//  }
+
 //  @GetMapping("/comp_words_force_compute")
 //  RespWrapper<?> getCompWordsForceCompute(@RequestBody CompSeeds seeds) {
 //    List<List<CompWord>> result = compScoreCompute.compute(seeds.getSeeds(), seeds.getReqNum());

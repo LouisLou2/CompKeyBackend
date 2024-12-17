@@ -5,5 +5,6 @@ import com.example.comp.entity.RecoCompWord;
 import java.util.List;
 
 public interface PromptBuilder {
-  String buildPrompt(String word, List<RecoCompWord> candidates);
+  String buildRecoPrompt(String word, List<RecoCompWord> candidates);
+  String buildReportPrompt(String word, List<RecoCompWord> candidates);
 }
