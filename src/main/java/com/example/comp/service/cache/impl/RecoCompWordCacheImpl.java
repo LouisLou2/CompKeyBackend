@@ -73,17 +73,17 @@ public class RecoCompWordCacheImpl implements RecoCompWordCache {
   local zset_size = redis.call("ZCARD", zset_key)
   
   if zset_size >= max_num then
-      -- 如果 zset 已经满了，找到最大的时间戳和对应的 wordId
-      local max_entry = redis.call("ZREVRANGE", zset_key, 0, 0, "WITHSCORES")
-      local max_timeStamp = tonumber(max_entry[2])
-      local max_wordId = max_entry[1]
+      -- 如果 zset 已经满了，找到最小的时间戳和对应的 wordId（LRU 策略）
+      local min_entry = redis.call("ZRANGE", zset_key, 0, 0, "WITHSCORES")
+      local min_timeStamp = tonumber(min_entry[2])
+      local min_wordId = min_entry[1]
   
-      -- 移除最大时间戳的成员及对应的 list
-      redis.call("ZREM", zset_key, max_wordId)
-      redis.call("DEL", list_key .. ":" .. max_wordId)
+      -- 移除最小时间戳的成员及对应的 list
+      redis.call("ZREM", zset_key, min_wordId)
+      redis.call("DEL", list_key .. ":" .. min_wordId)
   
       -- 返回移除的 wordId 和对应的时间戳
-      return max_wordId
+      return min_wordId
   end
   
   -- 如果 zset 没有满，插入新的数据

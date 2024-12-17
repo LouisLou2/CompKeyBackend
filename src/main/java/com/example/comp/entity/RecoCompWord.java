@@ -27,6 +27,8 @@ public class RecoCompWord {
 
   private double recoScore;
 
+  private double recoScoreScaled;
+
   public CompWord toCompWord() {
     return new CompWord(id, word, compScore);
   }

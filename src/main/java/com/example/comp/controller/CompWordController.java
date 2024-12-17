@@ -6,6 +6,7 @@ import com.example.comp.entity.RecoCompWord;
 import com.example.comp.entity.RecoScore;
 import com.example.comp.entity.req.CompSeeds;
 import com.example.comp.service.base.inter.WordMap;
+import com.example.comp.service.specific.RecoScoreScaler;
 import com.example.comp.struct.Pair;
 import com.example.comp.struct.RespWrapper;
 import com.example.comp.usecase.inter.RecoCompScoreCorrector;
@@ -32,6 +33,9 @@ public class CompWordController {
   @Resource
   private RecoCompScoreCorrector recoCompScoreCorrector;
 
+  @Resource
+  private RecoScoreScaler recoScoreScaler;
+
   @GetMapping("/reco_words")
   RespWrapper<?> getRecoCompWords(
     String word,
@@ -39,12 +43,11 @@ public class CompWordController {
     @RequestParam @Min(0) int offset
   ) {
     Integer wordId = wordMap.getIdByWord(word);
-    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
-    List<RecoScore> recos = new ArrayList<>();
-    for (RecoCompWord recoCompWord : result) {
-      recos.add(new RecoScore(recoCompWord.getId(), recoCompWord.getRecoScore()));
+    if (wordId == null) {
+      return RespWrapper.success(List.of());
     }
-    recoCompScoreCorrector.correctRecoCompScore(wordId, recos);
+    List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
+    recoScoreScaler.scale(result);
     return RespWrapper.success(result);
   }
 
@@ -54,7 +57,11 @@ public class CompWordController {
     @RequestParam @Min(1) @Max(10000) int limit,
     @RequestParam @Min(0) int offset
   ) {
+    if (!wordMap.exists(wordId)) {
+      return RespWrapper.success(List.of());
+    }
     List<RecoCompWord> result = compScoreRetriever.getRecoCompWords(wordId, limit, offset, true);
+    recoScoreScaler.scale(result);
     return RespWrapper.success(result);
   }
 
@@ -63,5 +70,12 @@ public class CompWordController {
 //    List<List<CompWord>> result = compScoreCompute.compute(seeds.getSeeds(), seeds.getReqNum());
 //    return RespWrapper.success(result);
 //  }
+
+
+//    List<RecoScore> recos = new ArrayList<>();
+//    for (RecoCompWord recoCompWord : result) {
+//      recos.add(new RecoScore(recoCompWord.getId(), recoCompWord.getRecoScore()));
+//    }
+//    recoCompScoreCorrector.correctRecoCompScore(wordId, recos);
 
 }

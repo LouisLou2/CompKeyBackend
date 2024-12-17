@@ -54,6 +54,11 @@ public class WordMapImpl implements WordMap {
   }
 
   @Override
+  public boolean exists(int wordId) {
+    return wordList.size() > wordId;
+  }
+
+  @Override
   public void setWordFor(List<? extends WithWord> lis) {
     for (WithWord word : lis) {
       WordOccur wordOccur = wordList.get(word.getId());
