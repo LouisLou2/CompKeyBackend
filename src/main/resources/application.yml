@@ -17,6 +17,11 @@ resource:
   word-graph:
     node: /node/node.csv
 
+# OpenAI
+openai:
+  api-url: https://api.openai-proxy.org/v1
+  api-key: sk-KsQLqgB36Ubu3ybDkYSpwhb8cp8b6PbsDkN9U22Saf5nYnMJ
+
 
 data:
   neo4j:
