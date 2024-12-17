@@ -53,6 +53,18 @@ public class AIDeepSearcherImpl implements AIDeepSearcher {
     }
   }
 
+  @Override
+  public String report(String queryWord, String compWord) {
+    String prompt = promptBuilder.buildReportPrompt(queryWord, compWord);
+    try {
+      String modelOutput = aiCompleter.complete(prompt, "");
+      return modelOutputParser.modelOutputPrimaryChoice(modelOutput);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
   private List<WordScore> parseWordScores(String primaryChoice) throws JsonProcessingException {
     return objectMapper.readValue(
         primaryChoice,

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.comp.mapper.FeedBackMapper">
+
+    <insert id="insertFeedback">
+        insert into feedback (ipv4, seedId, compId, opinion, time, processed)
+        values (#{ipv4}, #{seedId}, #{compId}, #{opinion}, #{time}, 0)
+    </insert>
+
+    <update id="markAsProcessed">
+        update feedback
+        set processed = 1
+        where id between #{idFrom} and #{idTo}
+    </update>
+
+<!--    <select id="getUnprocessedOpinions" resultType="ScoreOpinion">-->
+<!--        select-->
+<!--            id,-->
+<!--            compId,-->
+<!--            opinion-->
+<!--        from-->
+<!--            feedback-->
+<!--        where-->
+<!--            time between  #{since} and #{to}-->
+<!--            and processed = 0-->
+<!--            order by time asc-->
+<!--            limit #{limit} offset #{offset}-->
+<!--    </select>-->
+
+    <select id="getUnprocessedOpinionsByTime" resultType="ScoreOpinion">
+        select
+            id,
+            seedId,
+            compId,
+            opinion
+        from
+            feedback
+        where
+            processed = 0
+            order by time asc
+            limit #{limit} offset #{offset}
+    </select>
+
+    <select id="getUnprocessedSeedIds" resultType="java.lang.Integer">
+        select distinct seedId
+        from feedback
+        where processed = 0 and time between #{from} and #{to}
+    </select>
+
+    <select id="getUnprocessedBySeedId" resultType="ScoreOpinion">
+        select
+            id,
+            seedId,
+            compId,
+            opinion
+        from
+            feedback
+        where
+            seedId = #{seedId}
+            and processed = 0
+            and time >= #{minTime}
+            order by time asc
+            limit #{limit} offset #{offset}
+    </select>
+
+</mapper>

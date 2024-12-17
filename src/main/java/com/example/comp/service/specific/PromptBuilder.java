@@ -7,4 +7,5 @@ import java.util.List;
 public interface PromptBuilder {
   String buildRecoPrompt(String word, List<RecoCompWord> candidates);
   String buildReportPrompt(String word, List<RecoCompWord> candidates);
+  String buildReportPrompt(String word, String compWord);
 }

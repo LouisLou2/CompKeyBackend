@@ -47,4 +47,21 @@ public class PromptBuilderImpl implements PromptBuilder{
         .append("请用专业、流畅且逻辑清晰的语言完成以上内容。");
     return promptBuilder.toString();
   }
+
+  @Override
+  public String buildReportPrompt(String word, String compWord) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("请撰写一篇详细分析报告，解释为什么基于用户提供的种子关键词:")
+      .append(word)
+      .append(",系统会推荐竞争关键词:")
+      .append(compWord)
+      .append("\n")
+      .append("分析报告内容要求：\n")
+      .append("1. 对种子关键词进行定义和背景介绍，说明其核心意义及重要性；\n")
+      .append("2. 分析竞争关键词与种子关键词之间的关联性，包括相似性或互补性；\n")
+      .append("3. 针对竞争关键词，讨论其流行趋势、典型应用场景和潜在竞争优势；\n")
+      .append("4. 综合分析，总结竞争关键词的价值，并提供相关优化或扩展建议。\n\n")
+      .append("请用专业、流畅且逻辑清晰的语言完成以上内容。");
+    return sb.toString();
+  }
 }
